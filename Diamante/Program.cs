@@ -1,56 +1,48 @@
 ﻿namespace Diamante
 {
-    internal class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
             char[] alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-            Console.WriteLine("Digite a letra central do diamante: ");
-            char letra = Convert.ToChar(Console.ReadLine().ToUpper());
+            char letra = Convert.ToChar(ReceberValor("Digite a letra central do diamante: ").ToUpper());
+            int indice = Array.IndexOf(alfabeto, letra);
             Console.WriteLine();
-            int indice = 0;
-            while (true)
-            {
-                if (alfabeto[indice] == letra)
-                {
-                    break;
-                }
-
-                indice++;
-            }
-
-            int espaco = (indice);
-            Console.Write(new string(' ', espaco));
-            Console.WriteLine('A');
-            espaco -= 1;
-            int espacoMeio = 1;
+            Console.WriteLine(FormatarLetraA(indice));
             for (int i = 1; i <= indice; i++)
             {
-                espacoMeio = (i * 2 - 1);
-                Console.Write(new string(' ', espaco));
-                Console.Write(alfabeto[i]);
-                Console.Write(new string(' ', espacoMeio));
-                Console.Write(alfabeto[i]);
-                espaco--;
-                espacoMeio += 2;
-                Console.WriteLine();
+                EscreverLinha(alfabeto, indice, i);
             }
 
-            espaco = 1;
             for (int i = indice - 1; i > 0; i--)
             {
-                espacoMeio = (i * 2 - 1);
-                Console.Write(new string(' ', espaco));
-                Console.Write(alfabeto[i]);
-                Console.Write(new string(' ', espacoMeio));
-                Console.Write(alfabeto[i]);
-                espaco++;
-                Console.WriteLine();
+                EscreverLinha(alfabeto, indice, i);
             }
 
-            Console.Write(new string(' ', indice));
-            Console.WriteLine('A');
+            Console.WriteLine(FormatarLetraA(indice));
             Console.ReadLine();
+        }
+
+        static string ReceberValor(string mensagem)
+        {
+            Console.Write(mensagem);
+            return Console.ReadLine();
+        }
+
+        static string FormatarLetraA(int indice)
+        {
+            return new string(' ', indice) + 'A';
+        }
+
+        static void EscreverLinha(char[] alfabeto, int indice, int i)
+        {
+            int espaco = (indice - i);
+            int espacoMeio = (i * 2 - 1);
+            Console.Write(new string(' ', espaco));
+            Console.Write(alfabeto[i]);
+            Console.Write(new string(' ', espacoMeio));
+            Console.Write(alfabeto[i]);
+            Console.WriteLine();
         }
     }
 }
